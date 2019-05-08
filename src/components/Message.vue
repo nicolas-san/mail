@@ -1,5 +1,5 @@
 <template>
-	<div class="app-content-details">
+	<AppContentDetails>
 		<Loading v-if="loading" />
 		<Error
 			v-else-if="!message"
@@ -43,10 +43,11 @@
 				:draft="saveReplyDraft"
 			/>
 		</template>
-	</div>
+	</AppContentDetails>
 </template>
 
 <script>
+import {AppContentDetails} from 'nextcloud-vue'
 import {generateUrl} from 'nextcloud-server/dist/router'
 
 import AddressList from './AddressList'
@@ -65,6 +66,7 @@ export default {
 	name: 'Message',
 	components: {
 		AddressList,
+		AppContentDetails,
 		Composer,
 		Error,
 		Loading,

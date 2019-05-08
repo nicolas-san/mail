@@ -1,5 +1,5 @@
 <template>
-	<router-link class="app-content-list-item" :class="{unseen: data.flags.unseen, draft}" :to="link">
+	<AppContentListItem :class="{unseen: data.flags.unseen, draft}" :to="link">
 		<div
 			v-if="showAccountColor"
 			class="mail-message-account-color"
@@ -33,11 +33,11 @@
 			}}</ActionButton>
 			<ActionButton icon="icon-delete" @click="onDelete">{{ t('mail', 'Delete') }}</ActionButton>
 		</Actions>
-	</router-link>
+	</AppContentListItem>
 </template>
 
 <script>
-import {Actions, ActionButton} from 'nextcloud-vue'
+import {Actions, ActionButton, AppContentListItem} from 'nextcloud-vue'
 import Moment from './Moment'
 
 import Avatar from './Avatar'
@@ -48,6 +48,7 @@ export default {
 	components: {
 		Actions,
 		ActionButton,
+		AppContentListItem,
 		Avatar,
 		Moment,
 	},

@@ -2,7 +2,7 @@
 	<Content app-name="mail">
 		<Navigation />
 		<AppContent>
-			<div class="app-content-details">
+			<AppContentDetails>
 				<h2>{{ t('mail', 'Keyboard shortcuts') }}</h2>
 
 				<p>{{ t('mail', 'Speed up your Mail experience with these quick shortcuts.') }}</p>
@@ -47,13 +47,13 @@
 						<dd>{{ t('mail', 'Refresh') }}</dd>
 					</div>
 				</dl>
-			</div>
+			</AppContentDetails>
 		</AppContent>
 	</Content>
 </template>
 
 <script>
-import {AppContent, Content} from 'nextcloud-vue'
+import {AppContent, AppContentDetails, Content} from 'nextcloud-vue'
 
 import Navigation from '../components/Navigation'
 
@@ -61,6 +61,7 @@ export default {
 	name: 'KeyboardShortcuts',
 	components: {
 		AppContent,
+		AppContentDetails,
 		Content,
 		Navigation,
 	},
