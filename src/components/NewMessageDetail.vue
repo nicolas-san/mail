@@ -65,7 +65,7 @@ export default {
 				// Forwarded message
 
 				const message = this.$store.getters.getMessageByUid(this.$route.query.uid)
-				Logger.debug('forwaring message', message)
+				Logger.debug('forwarding message', message)
 
 				return {
 					to: [],
