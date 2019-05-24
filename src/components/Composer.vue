@@ -100,11 +100,9 @@
 				@keypress="onBodyKeyPress"
 			></textarea>
 		</div>
-                <Actions class="submit-message-wrapper app-content-list-item-menu" menu-align="right">
-			<ActionButton icon="icon-mail" @click="onSend">{{ t('mail', 'Reply') }}</ActionButton>
-			<ActionButton icon="icon-delete" @click="onSend">{{ t('mail', 'Reply all') }}</ActionButton>
-			<ActionButton icon="icon-delete" @click="onSend">{{ t('mail', 'Forward') }}</ActionButton>
-		</Actions>
+		<div class="submit-message-wrapper">
+			<input class="submit-message send primary" type="submit" :value="submitButtonTitle" @click="onSend" />
+		</div>
 		<ComposerAttachments v-model="attachments" @upload="onAttachmentsUploading" />
 		<span v-if="savingDraft === true" id="draft-status">{{ t('mail', 'Saving draft …') }}</span>
 		<span v-else-if="savingDraft === false" id="draft-status">{{ t('mail', 'Draft saved') }}</span>
@@ -137,7 +135,6 @@ import {findRecipient} from '../service/AutocompleteService'
 import Loading from './Loading'
 import Logger from '../logger'
 import ComposerAttachments from './ComposerAttachments'
-import {Actions, ActionButton} from 'nextcloud-vue'
 
 const debouncedSearch = debouncePromise(findRecipient, 500)
 
@@ -154,8 +151,6 @@ const STATES = Object.seal({
 export default {
 	name: 'Composer',
 	components: {
-		Actions,
-		ActionButton,
 		ComposerAttachments,
 		Loading,
 		Multiselect,
@@ -466,11 +461,21 @@ textarea.reply {
 	min-height: 100px;
 }
 
+input.submit-message,
 .submit-message-wrapper {
 	position: fixed;
-	top: 135px;
+	bottom: 10px;
 	right: 15px;
-	z-index: 9999; /* always on top */
+}
+
+.submit-message-wrapper {
+	position: fixed;
+	height: 36px;
+	width: 60px;
+}
+
+.submit-message.send {
+	padding: 12px;
 }
 </style>
 
