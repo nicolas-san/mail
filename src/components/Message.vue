@@ -9,6 +9,11 @@
 		>
 		</Error>
 		<template v-else>
+			<div id="mail-message-actions">
+				<ActionButton icon="icon-mail" @click="replyMessage">{{ t('mail', 'Reply') }}</ActionButton>
+				<ActionButton icon="icon-delete" @click="replyAllMessage">{{ t('mail', 'Reply all') }}</ActionButton>
+				<ActionButton icon="icon-delete" @click="forwardMessage">{{ t('mail', 'Forward') }}</ActionButton>
+			</div>
 			<div id="mail-message-header" class="section">
 				<h2 :title="message.subject">{{ message.subject }}</h2>
 				<p class="transparency">
@@ -31,17 +36,6 @@
 				<div id="reply-composer"></div>
 				<input id="forward-button" type="button" :value="t('mail', 'Forward')" @click="forwardMessage" />
 			</div>
-			<Composer
-				v-if="!message.hasHtmlBody || htmlBodyLoaded"
-				:from-account="message.accountId"
-				:to="replyRecipient.to"
-				:cc="replyRecipient.cc"
-				:subject="replySubject"
-				:body="replyBody"
-				:reply-to="replyTo"
-				:send="sendReply"
-				:draft="saveReplyDraft"
-			/>
 		</template>
 	</AppContentDetails>
 </template>
@@ -50,6 +44,7 @@
 import _ from 'lodash'
 import AppContentDetails from 'nextcloud-vue/dist/Components/AppContentDetails'
 import {generateUrl} from 'nextcloud-router'
+import {Actions, ActionButton} from 'nextcloud-vue'
 
 import AddressList from './AddressList'
 import {buildReplyBody, buildRecipients as buildReplyRecipients, buildReplySubject} from '../ReplyBuilder'
@@ -67,6 +62,8 @@ import {saveDraft, sendMessage} from '../service/MessageService'
 export default {
 	name: 'Message',
 	components: {
+		Actions,
+		ActionButton,
 		AddressList,
 		AppContentDetails,
 		Composer,
@@ -193,6 +190,32 @@ export default {
 		},
 		sendReply(data) {
 			return sendMessage(data.account, data)
+		},
+		replyMessage() {
+			this.$router.push({
+				name: 'message',
+				params: {
+					accountId: this.$route.params.accountId,
+					folderId: this.$route.params.folderId,
+					messageUid: 'reply',
+				},
+				query: {
+					uid: this.message.uid,
+				},
+			})
+		},
+		replyAllMessage() {
+			this.$router.push({
+				name: 'message',
+				params: {
+					accountId: this.$route.params.accountId,
+					folderId: this.$route.params.folderId,
+					messageUid: 'replyAll',
+				},
+				query: {
+					uid: this.message.uid,
+				},
+			})
 		},
 		forwardMessage() {
 			this.$router.push({

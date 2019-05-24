@@ -26,7 +26,7 @@
 import _ from 'lodash'
 import AppContentDetails from 'nextcloud-vue/dist/Components/AppContentDetails'
 
-import {buildFowardSubject, buildReplyBody} from '../ReplyBuilder'
+import {buildFowardSubject, buildReplyBody, buildReplySubject} from '../ReplyBuilder'
 import Composer from './Composer'
 import {getRandomMessageErrorMessage} from '../util/ErrorMessageFactory'
 import Error from './Error'
@@ -62,15 +62,30 @@ export default {
 					body: this.draft.body,
 				}
 			} else if (!_.isUndefined(this.$route.query.uid)) {
-				// Forwarded message
+				// Forwarded or replied message
 
 				const message = this.$store.getters.getMessageByUid(this.$route.query.uid)
-				Logger.debug('forwarding message', message)
+				Logger.debug('forwarding or replying to message', message)
+
+				if (this.$route.params.messageUid === 'reply') {
+					var subject = buildReplySubject(message.subject)
+					var msgTo = message.from
+					var msgCc = []
+				} else if (this.$route.params.messageUid === 'replyAll') {
+					var subject = buildReplySubject(message.subject)
+					var msgTo = message.from
+					var msgCc = message.to.concat(message.cc)
+				} else {
+					// forwarded message
+					var subject = buildFowardSubject(message.subject)
+					var msgTo = []
+					var msgCc = []
+				}
 
 				return {
-					to: [],
-					cc: [],
-					subject: buildFowardSubject(message.subject),
+					to: msgTo,
+					cc: msgCc,
+					subject: subject,
 					body: buildReplyBody(message.bodyText, message.from[0], message.dateInt),
 				}
 			} else {

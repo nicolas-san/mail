@@ -73,7 +73,7 @@ export default {
 			return this.hasMessages && this.$route.name === 'message'
 		},
 		newMessage() {
-			return this.$route.params.messageUid === 'new'
+			return this.$route.params.messageUid === 'new' || this.$route.params.messageUid === 'reply' || this.$route.params.messageUid === 'replyAll'
 		},
 		envelopes() {
 			if (_.isUndefined(this.searchQuery)) {
