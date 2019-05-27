@@ -34,7 +34,6 @@
 				<MessagePlainTextBody v-else :body="message.body" :signature="message.signature" />
 				<MessageAttachments :attachments="message.attachments" />
 				<div id="reply-composer"></div>
-				<input id="forward-button" type="button" :value="t('mail', 'Forward')" @click="forwardMessage" />
 			</div>
 		</template>
 	</AppContentDetails>
