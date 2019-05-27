@@ -9,11 +9,11 @@
 		>
 		</Error>
 		<template v-else>
-			<div id="mail-message-actions">
+			<Actions id="mail-message-actions" class="app-content-list-item-menu" menu-align="right">
 				<ActionButton icon="icon-mail" @click="replyMessage">{{ t('mail', 'Reply') }}</ActionButton>
-				<ActionButton icon="icon-delete" @click="replyAllMessage">{{ t('mail', 'Reply all') }}</ActionButton>
-				<ActionButton icon="icon-delete" @click="forwardMessage">{{ t('mail', 'Forward') }}</ActionButton>
-			</div>
+				<ActionButton icon="icon-mail" @click="replyAllMessage">{{ t('mail', 'Reply all') }}</ActionButton>
+				<ActionButton icon="icon-mail" @click="forwardMessage">{{ t('mail', 'Forward') }}</ActionButton>
+			</Actions>
 			<div id="mail-message-header" class="section">
 				<h2 :title="message.subject">{{ message.subject }}</h2>
 				<p class="transparency">
