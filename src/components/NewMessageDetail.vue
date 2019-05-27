@@ -26,7 +26,7 @@
 import _ from 'lodash'
 import AppContentDetails from 'nextcloud-vue/dist/Components/AppContentDetails'
 
-import {buildFowardSubject, buildReplyBody, buildReplySubject} from '../ReplyBuilder'
+import {buildForwardSubject, buildReplyBody, buildReplySubject} from '../ReplyBuilder'
 import Composer from './Composer'
 import {getRandomMessageErrorMessage} from '../util/ErrorMessageFactory'
 import Error from './Error'
@@ -77,7 +77,7 @@ export default {
 					var msgCc = message.to.concat(message.cc)
 				} else {
 					// forwarded message
-					var subject = buildFowardSubject(message.subject)
+					var subject = buildForwardSubject(message.subject)
 					var msgTo = []
 					var msgCc = []
 				}
