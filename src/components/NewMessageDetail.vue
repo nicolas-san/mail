@@ -69,7 +69,7 @@ export default {
 
 				// message headers set for 'reply' action by default
 				let subject = buildReplySubject(message.subject)
-				let msgTo = message.from	
+				let msgTo = message.from
 				let msgCc = []
 				if (this.$route.params.messageUid === 'replyAll') {
 					msgTo = message.from
