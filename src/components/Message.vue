@@ -47,7 +47,6 @@ import {Actions, ActionButton} from 'nextcloud-vue'
 
 import AddressList from './AddressList'
 import {buildReplyBody, buildRecipients as buildReplyRecipients, buildReplySubject} from '../ReplyBuilder'
-import Composer from './Composer'
 import Error from './Error'
 import {getRandomMessageErrorMessage} from '../util/ErrorMessageFactory'
 import {htmlToText} from '../util/HtmlHelper'
@@ -64,8 +63,6 @@ export default {
 		Actions,
 		ActionButton,
 		AddressList,
-		AppContentDetails,
-		Composer,
 		Error,
 		Loading,
 		MessageAttachments,
