@@ -10,9 +10,9 @@
 		</Error>
 		<template v-else>
 			<Actions id="mail-message-actions" class="app-content-list-item-menu" menu-align="right">
-				<ActionButton icon="icon-mail" @click="replyMessage">{{ t('mail', 'Reply') }}</ActionButton>
-				<ActionButton icon="icon-mail" @click="replyAllMessage">{{ t('mail', 'Reply all') }}</ActionButton>
-				<ActionButton icon="icon-mail" @click="forwardMessage">{{ t('mail', 'Forward') }}</ActionButton>
+				<ActionButton :icon="generateIconUrl('reply')" @click="replyMessage">{{ t('mail', 'Reply') }}</ActionButton>
+				<ActionButton :icon="generateIconUrl('reply-all')" @click="replyAllMessage">{{ t('mail', 'Reply all') }}</ActionButton>
+				<ActionButton :icon="generateIconUrl('forward')" @click="forwardMessage">{{ t('mail', 'Forward') }}</ActionButton>
 			</Actions>
 			<div id="mail-message-header" class="section">
 				<h2 :title="message.subject">{{ message.subject }}</h2>
@@ -106,6 +106,9 @@ export default {
 		this.fetchMessage()
 	},
 	methods: {
+		generateIconUrl(icon) {
+			return generateUrl('/apps/mail/img/' + icon + '.svg')
+		},
 		fetchMessage() {
 			this.loading = true
 			this.message = undefined

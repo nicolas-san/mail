@@ -348,7 +348,15 @@
 .icon-trash {
 	@include icon-color('trash', 'mail', $color-black);
 }
-
+.icon-reply {
+	@include icon-color('reply', 'mail', $color-black, 1, false);
+}
+.icon-reply-all {
+	@include icon-color('reply-all', 'mail', $color-black, 1, false);
+}
+.icon-forward {
+	@include icon-color('forward', 'mail', $color-black, 1, false);
+}
 
 
 
