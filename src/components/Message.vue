@@ -9,11 +9,24 @@
 		>
 		</Error>
 		<template v-else>
-			<Actions id="mail-message-actions" class="app-content-list-item-menu" menu-align="right">
-				<ActionButton :icon="generateIconUrl('reply')" @click="replyMessage">{{ t('mail', 'Reply') }}</ActionButton>
-				<ActionButton :icon="generateIconUrl('reply-all')" @click="replyAllMessage">{{ t('mail', 'Reply all') }}</ActionButton>
-				<ActionButton :icon="generateIconUrl('forward')" @click="forwardMessage">{{ t('mail', 'Forward') }}</ActionButton>
-			</Actions>
+			<div id="mail-message-actions">
+				<div id="mail-message-action-reply" @click="hasMultipleRecipients ? replyAll() : replyMessage()">
+					<div :class="hasMultipleRecipients ? 'icon-reply-all primary' : 'icon-reply primary'" />
+					<span>{{ t('mail', 'Reply') }}</span>
+				</div>
+				<Actions class="app-content-list-item-menu" menu-align="right">
+					<ActionButton v-if="hasMultipleRecipients" 
+							icon="icon-reply" 
+							@click="replyMessage">
+						{{ t('mail', 'Reply to sender only') }}
+					</ActionButton>
+					<ActionButton 
+						icon="icon-forward" 
+						@click="forwardMessage">
+						{{ t('mail', 'Forward') }}
+					</ActionButton>
+				</Actions>
+			</div>
 			<div id="mail-message-header" class="section">
 				<h2 :title="message.subject">{{ message.subject }}</h2>
 				<p class="transparency">
@@ -96,6 +109,9 @@ export default {
 				messageId: this.message.id,
 			}
 		},
+		hasMultipleRecipients() {
+			return ( this.replyRecipient.to.concat(this.replyRecipient.cc).length > 1 )
+		}
 	},
 	watch: {
 		$route(to, from) {
@@ -145,6 +161,7 @@ export default {
 						label: account.name,
 						email: account.emailAddress,
 					})
+
 					this.replySubject = buildReplySubject(message.subject)
 
 					if (!message.hasHtmlBody) {
@@ -203,7 +220,7 @@ export default {
 				},
 			})
 		},
-		replyAllMessage() {
+		replyAll() {
 			this.$router.push({
 				name: 'message',
 				params: {
@@ -278,6 +295,24 @@ export default {
 
 #mail-message-header .transparency a {
 	font-weight: bold;
+}
+
+#mail-message-actions { 
+	position: fixed;
+	top: 135px;
+	right: 15px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	z-index: 9999;
+}
+
+#mail-message-action-reply,
+#mail-message-action-reply span {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-left: 10px;
 }
 
 @media print {
