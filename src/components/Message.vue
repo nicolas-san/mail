@@ -10,7 +10,7 @@
 		</Error>
 		<template v-else>
 			<div id="mail-message-actions">
-				<div id="mail-message-action-reply" @click="hasMultipleRecipients ? replyAll() : replyMessage()">
+				<div id="mail-message-action-reply" class="button" @click="hasMultipleRecipients ? replyAll() : replyMessage()">
 					<div :class="hasMultipleRecipients ? 'icon-reply-all primary' : 'icon-reply primary'" />
 					<span>{{ t('mail', 'Reply') }}</span>
 				</div>
@@ -312,7 +312,7 @@ export default {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-left: 10px;
+	margin-left: 5px;
 }
 
 @media print {

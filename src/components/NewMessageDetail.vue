@@ -77,7 +77,7 @@ export default {
 				} else {
 					// forwarded message
 					subject = buildForwardSubject(message.subject)
-					msgTo = []
+					msgTo = message.from
 				}
 
 				return {
