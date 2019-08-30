@@ -67,17 +67,16 @@ export default {
 				const message = this.$store.getters.getMessageByUid(this.$route.query.uid)
 				Logger.debug('forwarding or replying to message', message)
 
-				// message headers set for 'reply' action by default
+				// message headers set for 'reply' actions by default
 				let subject = buildReplySubject(message.subject)
 				let msgTo = message.from
 				let msgCc = []
 				if (this.$route.params.messageUid === 'replyAll') {
-					msgTo = message.from
 					msgCc = message.to.concat(message.cc)
-				} else {
-					// forwarded message
+				} else if (this.$route.params.messageUid !== 'reply') {
+					// forward
 					subject = buildForwardSubject(message.subject)
-					msgTo = message.from
+					msgTo = []
 				}
 
 				return {
