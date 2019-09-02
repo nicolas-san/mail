@@ -254,7 +254,7 @@ export default {
 
 <style>
 #mail-message {
-	width: 100%;
+	flex-grow: 1;
 }
 
 .mail-message-body {
