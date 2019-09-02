@@ -27,7 +27,8 @@
 				</div>
 				<div id="mail-message-actions">
 					<div @click="hasMultipleRecipients ? replyAll() : replyMessage()"
-						:class="hasMultipleRecipients ? 'icon-reply-all button primary' : 'icon-reply button primary'" >
+						:class="hasMultipleRecipients ? 'icon-reply-all-white button primary' : 'icon-reply-white button primary'" >
+						<span class="action-label">{{ t('mail', 'Reply') }}</span>
 					</div>
 					<Actions class="app-content-list-item-menu" menu-align="right">
 						<ActionButton v-if="hasMultipleRecipients" 
@@ -263,7 +264,7 @@ export default {
 #mail-message-header {
 	display: flex;
 	flex-direction: row;
-	flex-grow: 1;
+	justify-content: space-between;
 }
 
 #mail-message-header-fields h2,
@@ -313,14 +314,30 @@ export default {
 	flex-direction: row;
 	justify-content: flex-end;
 	margin-left: 10px;
+	margin-right: 5px;
+	height: 44px;
 }
 
-.icon-reply,
-.icon-reply-all {
-	width: 44px;
+.icon-reply-white,
+.icon-reply-all-white {
 	height: 44px;
+	min-width: 44px;
 	margin: 0;
-	padding: 14px;
+	padding: 11px 10px 10px 25px;
+}
+
+// Show action button label and move icon to the left
+// on screens larger than 600px
+@media only screen and (max-width: 600px) {
+	.action-label {
+		display: none;
+	}
+}
+@media only screen and (min-width: 600px) {
+	.icon-reply-white,
+	.icon-reply-all-white {
+		background-position: 5px center;
+	}
 }
 
 @media print {
