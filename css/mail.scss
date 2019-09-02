@@ -349,10 +349,9 @@
 	@include icon-color('trash', 'mail', $color-black);
 }
 
-@include icon-black-white('reply', 'mail', $color-black, 1);
-@include icon-black-white('reply-all', 'mail', $color-black, 1);
-@include icon-black-white('forward', 'mail', $color-black, 1);
-
+@include icon-black-white('reply', 'mail', 1);
+@include icon-black-white('reply-all', 'mail', 1);
+@include icon-black-white('forward', 'mail', 1);
 
 // FIXES for core apps.scss
 
