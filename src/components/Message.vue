@@ -26,7 +26,7 @@
 					</p>
 				</div>
 				<div id="mail-message-actions">
-					<div id="mail-message-action-reply" @click="hasMultipleRecipients ? replyAll() : replyMessage()"
+					<div @click="hasMultipleRecipients ? replyAll() : replyMessage()"
 						:class="hasMultipleRecipients ? 'icon-reply-all button primary' : 'icon-reply button primary'" >
 					</div>
 					<Actions class="app-content-list-item-menu" menu-align="right">
@@ -259,6 +259,7 @@ export default {
 #mail-message-header {
 	display: flex;
 	flex-direction: row;
+	flex-grow: 1;
 }
 
 #mail-message-header-fields h2,
@@ -307,14 +308,15 @@ export default {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
+	margin-left: 10px;
 }
 
-#mail-message-action-reply,
-#mail-message-action-reply span {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	margin-left: 5px;
+.icon-reply,
+.icon-reply-all {
+	width: 44px;
+	height: 44px;
+	margin: 0;
+	padding: 14px;
 }
 
 @media print {
