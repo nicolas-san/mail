@@ -124,9 +124,6 @@ export default {
 		this.fetchMessage()
 	},
 	methods: {
-		generateIconUrl(icon) {
-			return generateUrl('/apps/mail/img/' + icon + '.svg')
-		},
 		fetchMessage() {
 			this.loading = true
 			this.message = undefined
