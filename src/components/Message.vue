@@ -9,38 +9,39 @@
 		>
 		</Error>
 		<template v-else>
-			<div id="mail-message-actions">
-				<div id="mail-message-action-reply" class="button" @click="hasMultipleRecipients ? replyAll() : replyMessage()">
-					<div :class="hasMultipleRecipients ? 'icon-reply-all primary' : 'icon-reply primary'" />
-					<span>{{ t('mail', 'Reply') }}</span>
-				</div>
-				<Actions class="app-content-list-item-menu" menu-align="right">
-					<ActionButton v-if="hasMultipleRecipients" 
-							icon="icon-reply" 
-							@click="replyMessage">
-						{{ t('mail', 'Reply to sender only') }}
-					</ActionButton>
-					<ActionButton 
-						icon="icon-forward" 
-						@click="forwardMessage">
-						{{ t('mail', 'Forward') }}
-					</ActionButton>
-				</Actions>
-			</div>
 			<div id="mail-message-header" class="section">
-				<h2 :title="message.subject">{{ message.subject }}</h2>
-				<p class="transparency">
-					<AddressList :entries="message.from" />
-					to
-					<!-- TODO: translate -->
-					<AddressList :entries="message.to" />
-					<template v-if="message.cc.length">
-						(cc
+				<div id="mail-message-header-fields">
+					<h2 :title="message.subject">{{ message.subject }}</h2>
+					<p class="transparency">
+						<AddressList :entries="message.from" />
+						to
 						<!-- TODO: translate -->
-						<AddressList :entries="message.cc" /><!--
-						-->)
-					</template>
-				</p>
+						<AddressList :entries="message.to" />
+						<template v-if="message.cc.length">
+							(cc
+							<!-- TODO: translate -->
+							<AddressList :entries="message.cc" /><!--
+							-->)
+						</template>
+					</p>
+				</div>
+				<div id="mail-message-actions">
+					<div id="mail-message-action-reply" @click="hasMultipleRecipients ? replyAll() : replyMessage()"
+						:class="hasMultipleRecipients ? 'icon-reply-all button primary' : 'icon-reply button primary'" >
+					</div>
+					<Actions class="app-content-list-item-menu" menu-align="right">
+						<ActionButton v-if="hasMultipleRecipients" 
+								icon="icon-reply" 
+								@click="replyMessage">
+							{{ t('mail', 'Reply to sender only') }}
+						</ActionButton>
+						<ActionButton 
+							icon="icon-forward" 
+							@click="forwardMessage">
+							{{ t('mail', 'Forward') }}
+						</ActionButton>
+					</Actions>
+				</div>
 			</div>
 			<div class="mail-message-body">
 				<MessageHTMLBody v-if="message.hasHtmlBody" :url="htmlUrl" @loaded="onHtmlBodyLoaded" />
@@ -255,8 +256,13 @@ export default {
 	margin-bottom: 100px;
 }
 
-#mail-message-header h2,
-#mail-message-header p {
+#mail-message-header {
+	display: flex;
+	flex-direction: row;
+}
+
+#mail-message-header-fields h2,
+#mail-message-header-fields p {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -289,22 +295,18 @@ export default {
 	word-wrap: break-word;
 }
 
-#mail-message-header .transparency {
+#mail-message-header-fields .transparency {
 	opacity: 0.6;
 }
 
-#mail-message-header .transparency a {
+#mail-message-header-fields .transparency a {
 	font-weight: bold;
 }
 
 #mail-message-actions { 
-	position: fixed;
-	top: 135px;
-	right: 15px;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
-	z-index: 9999;
 }
 
 #mail-message-action-reply,
@@ -316,7 +318,7 @@ export default {
 }
 
 @media print {
-	#mail-message-header {
+	#mail-message-header-fields {
 		position: relative;
 	}
 
