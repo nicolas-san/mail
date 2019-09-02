@@ -93,6 +93,7 @@
 			<textarea
 				v-model="bodyVal"
 				v-autosize
+				ref="body"
 				name="body"
 				class="message-body"
 				:placeholder="t('mail', 'Message …')"
@@ -237,6 +238,10 @@ export default {
 			this.selectedAlias = this.aliases[0]
 		}
 		this.bodyVal = this.bodyWithSignature(this.selectedAlias, this.body)
+	},
+	mounted: function() {
+		this.$refs.body.focus()
+		this.$refs.body.setSelectionRange(0,0)
 	},
 	methods: {
 		recipientToRfc822(recipient) {
