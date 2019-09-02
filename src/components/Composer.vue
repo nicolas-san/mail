@@ -100,10 +100,10 @@
 				@keypress="onBodyKeyPress"
 			></textarea>
 		</div>
-		<div class="submit-message-wrapper">
+		<div class="composer-actions" >
+			<ComposerAttachments v-model="attachments" @upload="onAttachmentsUploading" />
 			<input class="submit-message send primary" type="submit" :value="submitButtonTitle" @click="onSend" />
 		</div>
-		<ComposerAttachments v-model="attachments" @upload="onAttachmentsUploading" />
 		<span v-if="savingDraft === true" id="draft-status">{{ t('mail', 'Saving draft …') }}</span>
 		<span v-else-if="savingDraft === false" id="draft-status">{{ t('mail', 'Draft saved') }}</span>
 	</div>
@@ -377,6 +377,11 @@ export default {
 	margin: 0;
 }
 
+.composer-actions {
+	display: flex;
+	flex-direction: row;
+}
+
 .composer-fields.mail-account > .multiselect {
 	max-width: none;
 	min-height: auto;
@@ -461,22 +466,6 @@ textarea.reply {
 	min-height: 100px;
 }
 
-input.submit-message,
-.submit-message-wrapper {
-	position: fixed;
-	bottom: 10px;
-	right: 15px;
-}
-
-.submit-message-wrapper {
-	position: fixed;
-	height: 36px;
-	width: 60px;
-}
-
-.submit-message.send {
-	padding: 12px;
-}
 </style>
 
 <style>
