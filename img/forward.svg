@@ -50,10 +50,6 @@
   <g
      transform="translate(0,-1036.4)"
      id="g4533"
-     style="opacity:0.5">
-    <path
-       d="m 1,1051.4 c 0,0 0.39147,-7.8025 7,-10 v -4 l 7,7 -7,7 v -4 c -5.1157,0 -7,4 -7,4 z"
-       id="path4531"
-       inkscape:connector-curvature="0" />
+    <path d="m 1,1051.4 c 0,0 0.39147,-7.8025 7,-10 v -4 l 7,7 -7,7 v -4 c -5.1157,0 -7,4 -7,4 z" id="path4531" inkscape:connector-curvature="0" />
   </g>
 </svg>
