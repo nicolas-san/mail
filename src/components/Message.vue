@@ -1,5 +1,5 @@
 <template>
-	<AppContentDetails>
+	<AppContentDetails id="mail-message">
 		<Loading v-if="loading" />
 		<Error
 			v-else-if="!message"
@@ -252,6 +252,10 @@ export default {
 </script>
 
 <style>
+#mail-message {
+	width: 100%;
+}
+
 .mail-message-body {
 	margin-bottom: 100px;
 }
