@@ -30,7 +30,7 @@
 						:class="hasMultipleRecipients ? 'icon-reply-all-white button primary' : 'icon-reply-white button primary'" >
 						<span class="action-label">{{ t('mail', 'Reply') }}</span>
 					</div>
-					<Actions class="app-content-list-item-menu" menu-align="right">
+					<Actions id="mail-message-actions-menu" class="app-content-list-item-menu" menu-align="right">
 						<ActionButton v-if="hasMultipleRecipients" 
 								icon="icon-reply" 
 								@click="replyMessage">
@@ -323,8 +323,8 @@ export default {
 	padding: 11px 10px 10px 25px;
 }
 
-// Show action button label and move icon to the left
-// on screens larger than 600px
+/* Show action button label and move icon to the left
+   on screens larger than 600px */
 @media only screen and (max-width: 600px) {
 	.action-label {
 		display: none;
@@ -335,6 +335,10 @@ export default {
 	.icon-reply-all-white {
 		background-position: 5px center;
 	}
+}
+
+#mail-message-actions-menu {
+	margin-left: 5px;
 }
 
 @media print {
