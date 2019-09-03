@@ -41,6 +41,16 @@
 							@click="forwardMessage">
 							{{ t('mail', 'Forward') }}
 						</ActionButton>
+						<ActionButton 
+							icon="icon-mail" 
+							@click="onToggleSeen">
+							{{ envelope.flags.unseen ? t('mail', 'Mark read') : t('mail', 'Mark unread') }}
+						</ActionButton>
+						<ActionButton
+							icon="icon-delete"
+							@click="onDelete">
+							{{ t('mail', 'Delete') }}
+						</ActionButton>
 					</Actions>
 				</div>
 			</div>
@@ -94,6 +104,7 @@ export default {
 			replyRecipient: {},
 			replySubject: '',
 			replyBody: '',
+			envelope: '',
 		}
 	},
 	computed: {
@@ -169,13 +180,13 @@ export default {
 
 					this.loading = false
 
-					const envelope = this.$store.getters.getEnvelope(message.accountId, message.folderId, message.id)
-					if (!envelope.flags.unseen) {
+					this.envelope = this.$store.getters.getEnvelope(message.accountId, message.folderId, message.id)
+					if (!this.envelope.flags.unseen) {
 						// Already seen -> no change necessary
 						return
 					}
 
-					return this.$store.dispatch('toggleEnvelopeSeen', envelope)
+					return this.$store.dispatch('toggleEnvelopeSeen', this.envelope)
 				})
 				.catch(error => {
 					Logger.error('could not load message ', {messageUid, error})
@@ -243,6 +254,47 @@ export default {
 				query: {
 					uid: this.message.uid,
 				},
+			})
+		},
+                onToggleSeen() {
+			this.$store.dispatch('toggleEnvelopeSeen', this.envelope)
+                },
+		onDelete(e) {
+			// Don't try to navigate to the deleted message
+			e.preventDefault()
+
+			let envelopes = this.$store.getters.getEnvelopes(this.$route.params.accountId, this.$route.params.folderId)
+			const idx = envelopes.indexOf(this.envelope)
+
+			Logger.debug('envelopes',envelopes)
+			Logger.debug('envelope',this.envelope)
+			let next
+			if (idx === -1) {
+			        Logger.debug('envelope to delete does not exist in envelope list')
+			        return
+			} else if (idx === 0) {
+			        next = envelopes[idx + 1]
+			} else {
+			        next = envelopes[idx - 1]
+			}
+
+			if (!next) {
+		        	Logger.debug('no next/previous envelope, not navigating')
+			        return
+			}
+
+			this.$emit('delete', this.envelope)
+			this.$store.dispatch('deleteMessage', this.envelope)
+
+			// Keep the selected account-folder combination, but navigate to a different message
+			// (it's not a bug that we don't use next.accountId and next.folderId here)
+			this.$router.push({
+			        name: 'message',
+			        params: {
+			                accountId: this.$route.params.accountId,
+			                folderId: this.$route.params.folderId,
+			                messageUid: next.uid,
+			        },
 			})
 		},
 	},
