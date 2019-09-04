@@ -318,6 +318,7 @@ export default {
 
 #mail-message-header-fields h2,
 #mail-message-header-fields p {
+	max-width: calc(100vw - 144px);
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
