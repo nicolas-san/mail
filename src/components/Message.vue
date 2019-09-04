@@ -301,7 +301,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #mail-message {
 	flex-grow: 1;
 }
@@ -314,16 +314,31 @@ export default {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
+	box-sizing: content-box !important;
+	height: 44px;
 }
 
-#mail-message-header-fields h2,
-#mail-message-header-fields p {
-	max-width: calc(100vw - 144px);
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	padding-bottom: 7px;
-	margin-bottom: 0;
+#mail-message-header-fields {
+	// initial width
+	width: 0;
+	// grow and try to fill 100%
+	flex: 1 1 100%;
+	h2,
+	p {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		padding-bottom: 7px;
+		margin-bottom: 0;
+	}
+
+	.transparency {
+		opacity: 0.6;
+		a {
+			font-weight: bold;
+		}
+	}
 }
 
 #mail-content,
@@ -349,14 +364,6 @@ export default {
 	border-bottom: 1px dotted #07d;
 	text-decoration: none;
 	word-wrap: break-word;
-}
-
-#mail-message-header-fields .transparency {
-	opacity: 0.6;
-}
-
-#mail-message-header-fields .transparency a {
-	font-weight: bold;
 }
 
 #mail-message-actions { 
